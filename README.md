@@ -7,3 +7,5 @@ python manage.py runserver
 3 При создании Sneakers:
  3d Модели только glb формата(в filefield)
  
+Не забудь создать venv и install django, pillow
+если venv нет
