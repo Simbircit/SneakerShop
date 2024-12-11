@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sneakers</title>
+    {%load static%}
+    <link rel="stylesheet" href="{% static 'shapp/style.css' %}">
+</head>
+<body>
+        <header>
+            <nav>
+                <a href="" class="logo">
+                    <img src="{%static 'shapp/images/sneakers.png'%}" alt="" class="logo_img">
+                </a>
+                <div class="cart_div">
+                    <img src="{%static 'shapp/images/cart.png'%}" alt="" class="logo_img" id="cart">
+                    <section class="cart_box" id="cart_box">
+                        <h2>Корзина</h2>
+                        {%for item in cart_items%}
+                        <div>
+                            <h2>{{item.quantity}} {{item.sneakers.firm}} {{item.sneakers.title}} {{item.sneakers.price}}</h2>
+                            <a href="{%url 'remove_from_cart' item.id%}" class="">X</a>
+                        </div>
+                        {% empty %}
+                        <p>Your cart is empty.</p>
+                        {%endfor%}
+                        <h2>Total Price:</h2>
+                        <a class="" href="" id="">Купить</a>
+                    </section>
+                </div>
+            </nav>
+        </header>
+        <main>
+            <section class="products">
+                {%for sneakers in sneakers%}
+                <div class="">
+                    <model-viewer src="{{sneakers.obj_3d.url}}" ar ar-modes="webxr scene-viewer quick-look" camera-controls tone-mapping="neutral" poster="poster.webp" shadow-intensity="1" camera-orbit="-176.7deg 90.29deg 70.95m" field-of-view="30deg">
+                        <div class="progress-bar hide" slot="progress-bar">
+                            <div class="update-bar"></div>
+                        </div>
+                        <button slot="ar-button" id="ar-button">
+                            View in your space
+                        </button>
+                    </model-viewer>
+                    <!--Поменять на картинку-->
+                    <h2 class="">{{sneakers.firm}} {{sneakers.title}}</h2>
+                    <h2 class="">{{sneakers.price}}</h2>
+                    <a href="{%url 'add_to_cart' sneakers.id%}" class="">
+                        <!--Ссылка кнопка-->
+                        В корзину
+                    </a>
+                </div>
+                {%endfor%}
+            </section>
+            <section class="filters">
+                <h2 class="firm">Firm Filters</h2>
+                <a href="/" class="firm">all</a>
+                {%for firm in firms%}
+                <a href="/{{firm.name}}" class="firm">{{firm.name}}</a>
+                {%endfor%}
+            </section>
+        </main>
+        <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+        <script src="{%static 'shapp/script.js'%}"></script>
+</body>
+</html>
