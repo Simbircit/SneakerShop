@@ -59,6 +59,10 @@ main{
     flex-direction: row;
     justify-content: space-around;
 }
+.product_img{
+    width:300px;
+    height 300px;
+}
 .firm{
     margin-top: 10px;
     text-decoration: none;

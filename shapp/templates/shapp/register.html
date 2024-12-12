@@ -18,6 +18,12 @@
                 <h2 class="header_leaks">{{ user.username }}</h2>
                     <a class="header_leaks" href="{%url 'logout'%}">EXIT</a>
                 </div>
+                {%else%}
+                <div class="header_box">
+                    <a class="header_leaks" href="{%url 'login'%}">Войти</a>
+                    <a class="header_leaks" href="{%url 'register'%}">Зарегистрироваться</a>
+                </div>
+                {%endif%}
                 <div class="cart_div">
                     <img src="{%static 'shapp/images/cart.png'%}" alt="" class="logo_img" id="cart">
                     <section class="cart_box" id="cart_box">
@@ -34,39 +40,17 @@
                         <a class="" href="" id="">Купить</a>
                     </section>
                 </div>
-                {%else%}
-                <div class="header_box">
-                    <a class="header_leaks" href="{%url 'login'%}">Войти</a>
-                    <a class="header_leaks" href="{%url 'register'%}">Зарегистрироваться</a>
-                </div>
-                {%endif%}
             </nav>
         </header>
         <main>
-            <section class="products">
-                {%for sneakers in sneakers%}
-                <div class="">
-                    <a href="{%url 'product' sneakers.id%}" class="">
-                        <img src="{{sneakers.img.url}}" alt="" class="product_img">
-                        <h2 class="">{{sneakers.firm}} {{sneakers.title}}</h2>
-                        <h2 class="">{{sneakers.price}}</h2>
-                    </a>
-                    <a href="{%url 'add_to_cart' sneakers.id%}" class="">
-                        <!--Ссылка кнопка-->
-                        В корзину
-                    </a>
-                </div>
-                {%endfor%}
-            </section>
-            <section class="filters">
-                <h2 class="firm">Firm Filters</h2>
-                <a href="/" class="firm">all</a>
-                {%for firm in firms%}
-                <a href="/{{firm.name}}" class="firm">{{firm.name}}</a>
-                {%endfor%}
+            <section class="form_section">
+                <form method="post">
+                    {% csrf_token%}
+                    {{ form.as_p}}
+                    <button type="submit" value="send">Register</button>
+                </form>
             </section>
         </main>
-        <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
         <script src="{%static 'shapp/script.js'%}"></script>
 </body>
 </html>
