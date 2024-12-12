@@ -1,5 +1,6 @@
 const cart = document.getElementById('cart');
 const cart_box = document.getElementById('cart_box');
+const cart_button = document.getElementById('cart_button')
 
 cart.addEventListener('click', open_cart);
 
@@ -12,3 +13,9 @@ function open_cart(){
     }
 }
 open_cart()
+
+cart_button.addEventListener('click', buy);
+
+function buy(){
+    alert('Покупка совершена')
+}
