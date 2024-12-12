@@ -22,7 +22,7 @@ def main(request):
 
     else:
         form = Order()
-    context = {'sneakers': sneakers, 'firms': firms, 'cart_items': cart_items, 'form': form}
+    context = {'sneakers': sneakers, 'firms': firms, 'cart_items': cart_items, 'form': form, 'total_price': total_price}
 
     return render(request, 'shapp/main.html', context)
 
@@ -46,7 +46,7 @@ def main_filtered(request, firm_name):
     else:
         form = Order()
 
-    context = {'sneakers': sneakers, 'firms': firms, 'cart_items': cart_items, 'form': form}
+    context = {'sneakers': sneakers, 'firms': firms, 'cart_items': cart_items, 'form': form, 'total_price': total_price}
 
     return render(request, 'shapp/main.html', context)
 
@@ -69,7 +69,7 @@ def product(request, sneakers_id):
     else:
         form = Order()
 
-    context = {'sneakers': sneakers, 'cart_items': cart_items, 'form': form}
+    context = {'sneakers': sneakers, 'cart_items': cart_items, 'form': form, 'total_price': total_price}
 
     return render(request, 'shapp/sneakers.html', context)
 
@@ -81,14 +81,14 @@ def add_to_cart(request, sneakers_id):
 
     cart_item.quantity += 1
     cart_item.save()
-    return redirect('/')
+    return redirect(request.META.get('HTTP_REFERER'))
 
 
 def remove_from_cart(request, item_id):
 
     cart_item = CartItem.objects.get(id=item_id)
     cart_item.delete()
-    return redirect('/')
+    return redirect(request.META.get('HTTP_REFERER'))
 
 
 def register(request):

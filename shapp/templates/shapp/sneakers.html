@@ -36,15 +36,19 @@
                         {% empty %}
                         <p>Your cart is empty.</p>
                         {%endfor%}
-                        <h2>Total Price:</h2>
-                        <a class="" href="" id="">Купить</a>
+                        <h2>Total Price: {{ total_price }}$</h2>
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token%}
+                            {{form.as_p}}
+                            <button type="submit" class="cart_button">Купить</button>
+                        </form>
                     </section>
                 </div>
             </nav>
         </header>
         <main>
                 <div class="">
-                    <model-viewer src="{{sneakers.obj_3d.url}}" ar ar-modes="webxr scene-viewer quick-look" camera-controls tone-mapping="neutral" poster="poster.webp" shadow-intensity="1" camera-orbit="-176.7deg 90.29deg 70.95m" field-of-view="30deg">
+                    <model-viewer src="{{sneakers.obj_3d.url}}" ar ar-modes="webxr scene-viewer quick-look" camera-controls tone-mapping="neutral" poster="poster.webp" shadow-intensity="1" camera-orbit="-176.7deg 90.29deg 70.95m" field-of-view="30deg" class="product_img">
                         <div class="progress-bar hide" slot="progress-bar">
                             <div class="update-bar"></div>
                         </div>
@@ -55,7 +59,7 @@
                     <!--Поменять на картинку-->
                     <h2 class="">{{sneakers.firm}} {{sneakers.title}}</h2>
                     <h2 class="">{{sneakers.price}}</h2>
-                    <a href="{%url 'add_to_cart' sneakers.id%}" class="">
+                    <a href="{%url 'add_to_cart' sneakers.id%}" class="cart_button">
                         <!--Ссылка кнопка-->
                         В корзину
                     </a>
