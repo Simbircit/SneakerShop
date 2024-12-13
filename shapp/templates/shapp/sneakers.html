@@ -30,13 +30,16 @@
                         <h2>Корзина</h2>
                         {%for item in cart_items%}
                         <div>
-                            <h2>{{item.quantity}} {{item.sneakers.firm}} {{item.sneakers.title}} {{item.sneakers.price}}</h2>
-                            <a href="{%url 'remove_from_cart' item.id%}" class="">X</a>
+                            <h2>{{item.quantity}} {{item.sneakers.firm}} {{item.sneakers.title}} {{item.sneakers.price}}
+                                <a href="{%url 'remove_one_from_cart' item.id%}" class="">-</a>
+                                <a href="{%url 'remove_from_cart' item.id%}" class="">x</a>
+                            </h2>
                         </div>
                         {% empty %}
                         <p>Your cart is empty.</p>
                         {%endfor%}
-                        <h2>Total Price: {{ total_price }}$</h2>
+                        <a href="{%url 'clear_cart'%}" class="cart_button">Clear Cart</a>
+                        <h2>Total Price: {{ total_price }} $</h2>
                         <form method="post" enctype="multipart/form-data">
                             {% csrf_token%}
                             {{form.as_p}}
@@ -56,13 +59,9 @@
                             View in your space
                         </button>
                     </model-viewer>
-                    <!--Поменять на картинку-->
                     <h2 class="">{{sneakers.firm}} {{sneakers.title}}</h2>
                     <h2 class="">{{sneakers.price}}</h2>
-                    <a href="{%url 'add_to_cart' sneakers.id%}" class="cart_button">
-                        <!--Ссылка кнопка-->
-                        В корзину
-                    </a>
+                    <a href="{%url 'add_to_cart' sneakers.id%}" class="cart_button">В корзину</a>
                 </div>
         </main>
         <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
