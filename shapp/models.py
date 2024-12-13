@@ -40,6 +40,7 @@ class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     cart = models.ManyToManyField(CartItem, through="OrderCart")
     price = models.PositiveIntegerField(default=0)
+    order_info = models.TextField(null=True, blank=True)
 
 
 class OrderCart(models.Model):

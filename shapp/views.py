@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponseRedirect
+from django.shortcuts import render, redirect, HttpResponseRedirect, HttpResponse
 from .models import *
 from .forms import *
 from django.contrib.auth import logout
@@ -16,9 +16,12 @@ def main(request):
         order = Order()
         order.user = User.objects.get(username=request.user.username)
         order.price = total_price
+        order.order_info = f"{cart_items}"
         order.save()
         cart = cart_items
         order.cart.set(cart)
+
+        return HttpResponseRedirect('/clear_cart/')
 
     else:
         form = Order()
@@ -39,9 +42,12 @@ def main_filtered(request, firm_name):
         order = Order()
         order.user = User.objects.get(username=request.user.username)
         order.price = total_price
+        order.order_info = f"{cart_items}"
         order.save()
         cart = cart_items
         order.cart.set(cart)
+
+        return HttpResponseRedirect('/clear_cart/')
 
     else:
         form = Order()
@@ -62,9 +68,12 @@ def product(request, sneakers_id):
         order = Order()
         order.user = User.objects.get(username=request.user.username)
         order.price = total_price
+        order.order_info = f"{cart_items}"
         order.save()
         cart = cart_items
         order.cart.set(cart)
+
+        return HttpResponseRedirect('/clear_cart/')
 
     else:
         form = Order()
@@ -88,6 +97,26 @@ def remove_from_cart(request, item_id):
 
     cart_item = CartItem.objects.get(id=item_id)
     cart_item.delete()
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
+def remove_one_from_cart(request, item_id):
+
+    cart_item = CartItem.objects.get(id=item_id)
+    if cart_item.quantity > 1:
+        cart_item.quantity += -1
+        cart_item.save()
+    else:
+        cart_item.delete()
+
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
+def clear_cart(request):
+
+    cart_item = CartItem.objects.filter(user=request.user)
+    for i in cart_item:
+        i.delete()
     return redirect(request.META.get('HTTP_REFERER'))
 
 

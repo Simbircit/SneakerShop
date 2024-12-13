@@ -11,32 +11,12 @@
         <header>
             <nav>
                 <a href="/" class="logo">
-                    <img src="{%static 'shapp/images/sneakers.png'%}" alt="" class="logo_img">
+                    <img src="{%static 'shapp/images/snlogo.png'%}" alt="" class="logo_img">
                 </a>
                 {% if user.is_authenticated %}
                 <div class="header_box">
                 <h2 class="header_leaks">{{ user.username }}</h2>
                     <a class="header_leaks" href="{%url 'logout'%}">EXIT</a>
-                </div>
-                <div class="cart_div">
-                    <img src="{%static 'shapp/images/cart.png'%}" alt="" class="logo_img" id="cart">
-                    <section class="cart_box" id="cart_box">
-                        <h2>Корзина</h2>
-                        {%for item in cart_items%}
-                        <div>
-                            <h2>{{item.quantity}} {{item.sneakers.firm}} {{item.sneakers.title}} {{item.sneakers.price}}</h2>
-                            <a href="{%url 'remove_from_cart' item.id%}" class="">X</a>
-                        </div>
-                        {% empty %}
-                        <p>Your cart is empty.</p>
-                        {%endfor%}
-                        <h2>Total Price: {{ total_price }}$</h2>
-                        <form method="post" enctype="multipart/form-data">
-                            {% csrf_token%}
-                            {{form.as_p}}
-                            <button type="submit" class="cart_button" id="cart_button">Купить</button>
-                        </form>
-                    </section>
                 </div>
                 {%else%}
                 <div class="header_box">
@@ -44,16 +24,44 @@
                     <a class="header_leaks" href="{%url 'register'%}">Зарегистрироваться</a>
                 </div>
                 {%endif%}
+                <div class="cart_div">
+                    <img src="{%static 'shapp/images/carts.png'%}" alt="" class="logo_img" id="cart">
+                    <section class="cart_box" id="cart_box">
+                        <h2>Корзина</h2>
+                        {%for item in cart_items%}
+                        <div class="cart_words">
+                            <h2>{{item.quantity}} {{item.sneakers.firm}} {{item.sneakers.title}} price: {{item.sneakers.price}}$</h2>
+                            <section class="cart_images">
+                                <a href="{%url 'remove_one_from_cart' item.id%}">
+                                    <img src="{%static 'shapp/images/minus.png'%}" alt="" class="cart_img">
+                                </a>
+                                <a href="{%url 'remove_from_cart' item.id%}">
+                                    <img src="{%static 'shapp/images/x_button.png'%}" alt="" class="cart_img">
+                                </a>
+                            </section>
+                        </div>
+                        {% empty %}
+                        <h2>Your cart is empty</h2>
+                        {%endfor%}
+                        <a href="{%url 'clear_cart'%}" class="cart_button">Clear Cart</a>
+                        <h2>Total Price: {{ total_price }} $</h2>
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token%}
+                            {{form.as_p}}
+                            <button type="submit" class="cart_button" id="cart_button">Купить</button>
+                        </form>
+                    </section>
+                </div>
             </nav>
         </header>
         <main>
             <section class="products">
                 {%for sneakers in sneakers%}
-                <div class="">
+                <div>
                     <a href="{%url 'product' sneakers.id%}" class="">
                         <img src="{{sneakers.img.url}}" alt="" class="product_img">
-                        <h2 class="">{{sneakers.firm}} {{sneakers.title}}</h2>
-                        <h2 class="">{{sneakers.price}}</h2>
+                        <h3>{{sneakers.firm}} {{sneakers.title}}</h3>
+                        <h3>{{sneakers.price}} $</h3>
                     </a>
                     <a href="{%url 'add_to_cart' sneakers.id%}" class="cart_button">
                         <!--Ссылка кнопка-->
