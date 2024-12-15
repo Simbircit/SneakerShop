@@ -26,3 +26,4 @@ class OrderForm(forms.ModelForm):
 
         model = Order
         fields = []
+
