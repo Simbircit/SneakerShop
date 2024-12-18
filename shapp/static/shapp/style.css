@@ -84,7 +84,6 @@ main{
 }
 .filters{
     flex-grow: 1;
-    height: calc(100% - 70px);
     width: 360px;
     display: flex;
     flex-direction: column;
@@ -98,6 +97,12 @@ main{
     flex-direction: row;
     justify-content: space-around;
     flex-wrap: wrap;
+}
+.product{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .product_box{
     margin-top: 20px;

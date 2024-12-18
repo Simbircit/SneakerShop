@@ -24,6 +24,7 @@
                     <a class="header_leaks" href="{%url 'register'%}">Зарегистрироваться</a>
                 </div>
                 {%endif%}
+                {% if user.is_authenticated %}
                 <div class="cart_div">
                     <img src="{%static 'shapp/images/carts.png'%}" alt="" class="logo_img" id="cart">
                     <section class="cart_box" id="cart_box">
@@ -52,12 +53,13 @@
                         </form>
                     </section>
                 </div>
+                {%endif%}
             </nav>
         </header>
         <main>
             <section class="products">
                 {%for sneakers in sneakers%}
-                <div>
+                <div class="product">
                     <a href="{%url 'product' sneakers.id%}" class="">
                         <img src="{{sneakers.img.url}}" alt="" class="product_img">
                         <h3>{{sneakers.firm}} {{sneakers.title}}</h3>
